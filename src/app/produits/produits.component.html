@@ -1,0 +1,51 @@
+<h1>Kata Panier</h1>
+<header>
+    <div class="fliter">
+        <label for="category" aria-label="Filtrer les produit par category">Filtre: </label>
+        <select name="category" id="category" (change)="filterCategory($event)">
+            <option value="All">All</option>
+            <option value="Food">Food</option>
+            <option value="Medecine">Medcine</option>
+        </select>
+    </div>
+    <div class="cart__link">
+        <a routerLink="/panier">Panier: {{produitsService.cartQuantity}}</a>
+    </div>
+</header>
+<div class="products">
+
+    <div class="products__card" *ngFor="let product of produitsService.produits; let index = index"
+        [style.background-color]="product?.category === produitsService.CategoryEnum.medecine?'#adbdff':'white'">
+        <div tabindex="0" class="products__card-head">
+            <h2>{{product?.productName}}</h2>
+            <div class="category"> Categorie: {{product?.category}}</div>
+            <div class="prix">Prix: {{product?.price}}</div>
+        </div>
+
+        <div class="products__card-buttons">
+            <div class="not-available" *ngIf="(product.quantity === 0)" tabindex="0"
+                aria-label="Produit non disponible">
+                non disponible</div>
+            <div class="quanity" *ngIf="(product.quantity > 0)">
+                <label aria-label="Quantite" for="{{product?.id}}">Qte: </label>
+                <select name="quantity" id="{{product?.id}}" (change)="setValue(product, $event) "
+                    aria-label="Choisir le quantité de produit">
+                    <option selected value=null></option>
+                    <option *ngFor=" let number of productsQuantity(product.quantity)" value="{{number}}">
+                        {{number}}
+                    </option>
+                </select>
+            </div>
+
+            <button class="add-product" aria-label="Ajouter produit au panier"
+                (click)="addPanierProduct(product, selectionValues[product.id], index)"
+                [attr.disabled]="(product.quantity == 0) ? '' : null">Ajouter
+            </button>
+        </div>
+
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,28 @@
+<div class="home__link">
+    <a routerLink="/produits" aria-label="Retour à l'accueil">Accueil</a>
+</div>
+
+<div class="cart__block">
+    <table class="table" tabindex="0">
+        <caption class="caption__title"> Page Panier</caption>
+
+        <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Prix unitaire</th>
+            <th scope="col">Quantité</th>
+            <th scope="col">Total</th>
+        </tr>
+        <tr *ngFor="let productInCart of produitsService.cart; let index = index">
+            <td>{{productInCart.productName}}</td>
+            <td>{{productInCart.price}}€</td>
+            <td>{{productInCart.quantity}}</td>
+            <td>{{productInCart.total}}€</td>
+            <td>
+                <button aria-label="supprimer article dans le panier" class="button__less">
+                    <img aria-hidden="true" src="../../assets/delete-product.svg" (click)="removeProductCart(index)">
+                </button>
+            </td>
+        </tr>
+
+    </table>
+</div>
